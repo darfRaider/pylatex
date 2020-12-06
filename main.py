@@ -2,6 +2,7 @@
 import pylatex.src.utils.plot.figures.XYPlot as XYPlot
 import pylatex.src.utils.plot.figures.Histogram as Histogram
 import pylatex.src.utils.plot.figures.PieChart as PieChart
+import pylatex.src.utils.plot.Plot as Plot
 
 import matplotlib
 matplotlib.use('Agg') # added this for windows
@@ -13,9 +14,9 @@ import os
 ### testimports
 from random import randint
 
-
 OUTPUT_DIRECTORY = "out"
 
+# TODO: Remove following and add to Plot class
 plt.rcParams.update({
     "text.usetex": True,
     "font.family": "sans-serif",
@@ -51,7 +52,9 @@ PieChart.PieChart(labels, fracs, ax3).plot()
 
 plt.savefig("%s/myPlot.svg" % OUTPUT_DIRECTORY)
 
-os.system("mkdir " + OUTPUT_DIRECTORY)
+if not os.path.exists(OUTPUT_DIRECTORY):
+    os.mkdir(OUTPUT_DIRECTORY)
+    
 os.system("inkscape -D --export-pdf=%s/out.pdf --export-latex %s/myPlot.svg" % (OUTPUT_DIRECTORY, OUTPUT_DIRECTORY))
 os.system("pdflatex ./pylatex/latex/report.tex -output-directory %s" % OUTPUT_DIRECTORY)
 # os.system("pdflatex ./pylatex/latex/report.tex")
