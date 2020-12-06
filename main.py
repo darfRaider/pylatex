@@ -43,8 +43,8 @@ hist, bins = np.histogram(data)
 names = [str(x) for x in bins]
 test = [str(int(x)) for x in bins]
 h = Histogram.Histogram(data, test, ax2)
-
 h.xTicks(test)
+h.plot()
 
 ax3 = fig.add_subplot(1,3,3)
 labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
@@ -58,10 +58,11 @@ plt.savefig("%s/myPlot.svg" % OUTPUT_DIRECTORY)
 
 os.system("inkscape -D --export-pdf=%s/out.pdf --export-latex %s/myPlot.svg" % (OUTPUT_DIRECTORY, OUTPUT_DIRECTORY))
 
-# TODO: This texfile should be created automatically
+# TODO: This texfile should be created automatically, report.tex should compile when pdflatex called forom output directory
 copyfile('./pylatex/latex/report.tex','./out/report.tex')
 
-os.system("pdflatex ./%s/report.tex -output-directory %s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
+# TODO: set utput directory
+os.system("pdflatex ./%s/report.tex -output-directory ./%s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
 # # os.system("pdflatex ./pylatex/latex/report.tex")
 # # TODO: check when has to rebuild references (build twice)
-os.system("pdflatex ./%s/report.tex -output-directory %s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
+os.system("pdflatex ./%s/report.tex -output-directory ./%s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
