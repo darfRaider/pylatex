@@ -2,7 +2,7 @@
 import pylatex.src.utils.plot.figures.XYPlot as XYPlot
 import pylatex.src.utils.plot.figures.Histogram as Histogram
 import pylatex.src.utils.plot.figures.PieChart as PieChart
-import pylatex.src.utils.plot.Plot as Plot
+
 import matplotlib
 matplotlib.use('Agg') # added this for windows
 from matplotlib import pyplot as plt
@@ -10,6 +10,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from subprocess import call
 import os
+
 ### testimports
 from random import randint
 from shutil import copyfile
@@ -63,6 +64,5 @@ copyfile('./pylatex/latex/report.tex','./out/report.tex')
 
 # TODO: set utput directory
 os.system("pdflatex ./%s/report.tex -output-directory ./%s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
-# # os.system("pdflatex ./pylatex/latex/report.tex")
 # # TODO: check when has to rebuild references (build twice)
 os.system("pdflatex ./%s/report.tex -output-directory ./%s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
