@@ -57,7 +57,7 @@ if not os.path.exists(OUTPUT_DIRECTORY):
 
 plt.savefig("%s/myPlot.svg" % OUTPUT_DIRECTORY)
 
-os.system("inkscape -D --export-pdf=%s/out.pdf --export-latex %s/myPlot.svg" % (OUTPUT_DIRECTORY, OUTPUT_DIRECTORY))
+os.system("inkscape -D --export-filename=%s/out.pdf --export-latex %s/myPlot.svg" % (OUTPUT_DIRECTORY, OUTPUT_DIRECTORY))
 
 # TODO: This texfile should be created automatically, report.tex should compile when pdflatex called forom output directory
 copyfile('./pylatex/latex/report.tex','./out/report.tex')
