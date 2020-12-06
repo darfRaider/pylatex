@@ -3,7 +3,6 @@ import pylatex.src.utils.plot.figures.XYPlot as XYPlot
 import pylatex.src.utils.plot.figures.Histogram as Histogram
 import pylatex.src.utils.plot.figures.PieChart as PieChart
 import pylatex.src.utils.plot.Plot as Plot
-
 import matplotlib
 matplotlib.use('Agg') # added this for windows
 from matplotlib import pyplot as plt
@@ -13,8 +12,11 @@ from subprocess import call
 import os
 ### testimports
 from random import randint
+from shutil import copyfile
 
 OUTPUT_DIRECTORY = "out"
+SVG_DIRECTORY = "svg"
+
 
 # TODO: Remove following and add to Plot class
 plt.rcParams.update({
@@ -49,14 +51,17 @@ labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
 fracs = [0.25, 0.25, 0.1, 0.4]
 PieChart.PieChart(labels, fracs, ax3).plot()
 
+if not os.path.exists(OUTPUT_DIRECTORY):
+    os.mkdir(OUTPUT_DIRECTORY)
 
 plt.savefig("%s/myPlot.svg" % OUTPUT_DIRECTORY)
 
-if not os.path.exists(OUTPUT_DIRECTORY):
-    os.mkdir(OUTPUT_DIRECTORY)
-    
 os.system("inkscape -D --export-pdf=%s/out.pdf --export-latex %s/myPlot.svg" % (OUTPUT_DIRECTORY, OUTPUT_DIRECTORY))
-os.system("pdflatex ./pylatex/latex/report.tex -output-directory %s" % OUTPUT_DIRECTORY)
-# os.system("pdflatex ./pylatex/latex/report.tex")
-# TODO: check when has to rebuild references (build twice)
-os.system("pdflatex ./pylatex/latex/report.tex -output-directory %s" % OUTPUT_DIRECTORY)
+
+# TODO: This texfile should be created automatically
+copyfile('./pylatex/latex/report.tex','./out/report.tex')
+
+os.system("pdflatex ./%s/report.tex -output-directory %s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
+# # os.system("pdflatex ./pylatex/latex/report.tex")
+# # TODO: check when has to rebuild references (build twice)
+os.system("pdflatex ./%s/report.tex -output-directory %s" % (OUTPUT_DIRECTORY,OUTPUT_DIRECTORY))
